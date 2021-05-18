@@ -63,8 +63,8 @@ def graph(emp_train, risks):
     series = []
     plt.rcdefaults()
     if len(risks) == 1:
-        series =  map(lambda value: value*100, p_incidents_per_type[risk])
-        plt.title("Likelihood of " + str(risks) + "(" + str(emp_train*100) + " % of employees trained)")
+        series =  list(map(lambda value: value*100, p_incidents_per_type[risks[0]]))
+        plt.title("Likelihood of " + str(risks[0]) + "(" + str(emp_train*100) + " % of employees trained)")
     else:
         df = pd.DataFrame.from_dict(p_incidents_per_type)
         risk_prob = df.sum(axis=1).values.tolist()
@@ -80,6 +80,5 @@ def graph(emp_train, risks):
 for i in training_rates:
     graph(i, incidents_risk.keys())
 
-for risk in incidents_risk.keys():
-    for i in training_rates:
-        graph(i, risk)
+for i in training_rates:
+    graph(i, ["Successfull Data Loss Attack"])
